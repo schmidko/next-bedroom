@@ -1,0 +1,40 @@
+# This script install all needed dependencies on a fresh ubuntu 16.04 server
+---
+- hosts: dev
+  remote_user: root
+  gather_facts: yes
+
+  tasks:
+
+    - name: Delete directory
+      file:
+        state: absent
+        path: "/var/www/node/demo/"
+
+    - name: Create directory
+      file:
+        path: "/var/www/node/demo/"
+        state: directory
+
+    - name: Clone git repository
+      git:
+        repo: ""
+        version: "develop"
+        dest: "/var/www/node/demo/"
+        force: yes
+        accept_hostkey: yes
+
+    - name: link .env
+      file:
+        src: /etc/.env
+        dest: /var/www/node/demo/src/config/.env
+        state: link
+
+    - name: install packages
+      shell: . /etc/profile && npm install --prefix /var/www/node/demo
+
+    - name: build app
+      shell: . /etc/profile && npm run build-production --prefix /var/www/node/demo
+
+    - name: start the application
+      command: pm2 start /var/www/node/demo/bin/ecosystem.config.json --env dev
