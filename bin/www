@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'local') {
 const debug = require('debug')('untitled:server');
 const http = require('http');
 
-const port = process.env.PORT || 4444;
+const port = process.env.PORT || 12999;
 app.set('port', port);
 const server = http.createServer(app);
 server.listen(port);
