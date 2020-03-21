@@ -1,0 +1,7 @@
+[aws]
+next-dev ansible_host=next-dev
+next-stage ansible_host=next-stage
+next-production ansible_host=next-production
+
+[aws:vars]
+ansible_python_interpreter=/usr/bin/python3

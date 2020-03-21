@@ -1,0 +1,40 @@
+# This script install all needed dependencies on a fresh ubuntu 16.04 server
+---
+- hosts: next-stage
+  remote_user: root
+  gather_facts: yes
+
+  tasks:
+
+    - name: Delete directory
+      file:
+        state: absent
+        path: "/var/www/node/next_bedroom/"
+
+    - name: Create directory
+      file:
+        path: "/var/www/node/next_bedroom/"
+        state: directory
+
+    - name: Clone git repository
+      git:
+        repo: "git@github.com:schmidko/next-bedroom.git"
+        version: "develop"
+        dest: "/var/www/node/next_bedroom/"
+        force: yes
+        accept_hostkey: yes
+
+    - name: link .env
+      file:
+        src: /etc/.env-next-bedroom
+        dest: /var/www/node/next_bedroom/src/config/.env
+        state: link
+        
+    - name: install packages
+      shell: . /etc/profile && npm install --prefix /var/www/node/next_bedroom
+
+    - name: build app
+      shell: . /etc/profile && npm run build-production --prefix /var/www/node/next_bedroom
+
+    - name: start the application
+      command: pm2 start /var/www/node/next_bedroom/bin/ecosystem.config.json --env staging

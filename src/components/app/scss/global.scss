@@ -1,0 +1,117 @@
+
+// css colors
+:root {
+    --primary-color: #D5001C;
+    --primary-color-rgb: 213, 0, 28;
+    --secondary-color: #960014;
+    --surface-light: #F2F2F2;
+    --surface-dark: #B2B2B2;
+    --background--dark-1: #0E1418;
+}
+
+// reset css
+
+html {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+strong, b {
+    font-weight: bolder;
+}
+body {
+    color: rgba(0, 0, 0, 0.87);
+    margin: 0;
+    font-size: 0.875rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+}
+@media print {
+    body {
+        background-color: #fff;
+    }
+}
+body::backdrop {
+    background-color: #fafafa;
+}
+
+
+// basic layout
+html {
+    height: 100%;
+    background-color: var(--surface-light);
+    font-size: 16px;
+    line-height: 16px;
+}
+
+body {
+    min-height: 100%;
+    margin: 0;
+    background-color: var(--surface-light);
+}
+
+// lists
+.list--unstyled {
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+    li {
+        padding: 0;
+        display: inline-block;
+        margin: 0 10px;
+    }
+}
+
+// avatars
+.img--avatar {
+    border-radius: 50%;
+}
+
+// text alig helper
+.text-center {
+    text-align: center;
+}
+
+// hr
+hr.divider-20 {
+    border-top: 20px solid var(--surface-light);
+}
+
+// spacer
+.my-1 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.my-2 {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.talentpool-banner {
+    text-align: center;
+    font-size: .8rem;
+    background-color: var(--surface-dark);
+    padding: 4px 20px;
+    color: white;
+}
+
+.link--with-icon {
+    position: relative;
+
+    &:hover {
+        text-decoration: none !important;
+        cursor: pointer;
+    }
+
+    svg {
+        position: relative;
+        top: 6px;
+    }
+}

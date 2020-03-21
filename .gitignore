@@ -1,0 +1,14 @@
+/node_modules/
+/.idea/
+*.DS_Store
+/test.js
+/public/javascript/login_bundle.js
+/public/javascript/bundle.js
+/public/javascript/fonts/
+/public/static/fonts/
+
+/public/static/bundle.js
+/public/static/login_bundle.js
+src/config/.env
+yarn-error.log
+yarn.lock
