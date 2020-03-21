@@ -8,15 +8,14 @@ import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import SideBar from '../side_bar/side_bar';
 import Theme from '../app_theme/app_theme';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import mapboxgl from 'mapbox-gl';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import {IconButton} from '@material-ui/core';
-
+import ReactMapGL, {Marker} from 'react-map-gl';
+import {LocalHospital} from '@material-ui/icons';
 
 const Axios = require('axios');
-
-mapboxgl.accessToken = 'pk.eyJ1Ijoic2NobWlka28iLCJhIjoiY2s4MWM2YjE3MG00dzNscnU2eW0zMGd0MyJ9.H2i8YL6U3FGHPfyaJCWyyQ';
+const accessToken = 'pk.eyJ1Ijoic2NobWlka28iLCJhIjoiY2s4MWM2YjE3MG00dzNscnU2eW0zMGd0MyJ9.H2i8YL6U3FGHPfyaJCWyyQ';
 
 /**
  * App
@@ -26,32 +25,26 @@ class App extends React.Component {
     state = {
         loading: false,
         isOpen: false,
-        lng: 13.2706,
-        lat: 52.5223,
-        zoom: 10,
-        coords_bar: false
+        coords_bar: false,
+        viewport: {
+            latitude: 52.5223,
+            longitude: 13.2706,
+            zoom: 10,
+            bearing: 0,
+            pitch: 0
+        }
     };
 
     /**
      * lifecycle hook
      */
     componentDidMount() {
-        //this.loadUserObject();
+        // this.loadUserObject();
+        // style: 'mapbox://styles/mapbox/light-v10',
+        // mapbox://styles/schmidko/ck81smuov26lq1ipejf1oizd3
+        this.point_x = 52.476656;
+        this.point_y = 13.511840;
 
-        const map = new mapboxgl.Map({ 
-            container: this.mapContainer,
-            style: 'mapbox://styles/mapbox/light-v10',
-            center: [this.state.lng, this.state.lat],
-            zoom: this.state.zoom
-        });
-
-        map.on('move', () => {
-            this.setState({
-                lng: map.getCenter().lng.toFixed(4),
-                lat: map.getCenter().lat.toFixed(4),
-                zoom: map.getZoom().toFixed(2)
-            });
-        });
     }
 
     /**
@@ -81,22 +74,31 @@ class App extends React.Component {
             return null;
         }
 
-        let coords_bar = "";
-        if (this.state.coords_bar) { 
-            coords_bar = <div className='sidebarStyle'>
-                <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
-            </div>;
-        }
-
         return (
             <Theme>
-                <div>
-                    {coords_bar}
-                    <div ref={el => this.mapContainer = el} className='mapContainer' />
+                <div className="app--main">
                     <InfoBox handleToggle={this.handleToggle} />
                     {this.state.isOpen &&
                         <SideBar isOpen={this.state.isOpen} handleClose={this.handleToggle}/>
                     }
+                    <ReactMapGL
+                        className="app--map"
+                        {...this.state.viewport}
+                        width="100%"
+                        height="100vh"
+                        mapStyle="mapbox://styles/mapbox/light-v10"
+                        onViewportChange={viewport => this.setState({viewport})}
+                        mapboxApiAccessToken={accessToken}
+                    >    
+                        <Marker latitude={this.point_x} longitude={this.point_y} offsetLeft={-20} offsetTop={-10}>
+                            <div
+                                className="app--hospital-box"
+                            >
+                                <LocalHospital style={{color: "#4caf50"}} />
+                                <div>202</div>
+                            </div>
+                        </Marker>
+                    </ReactMapGL>
                 </div>
             </Theme>
         );

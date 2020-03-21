@@ -174,6 +174,7 @@ class InfoBox extends React.Component {
         if (this.state.loading === true) {
             return null;
         }
+
         return (
             <div className="ib--main">
                 <FormControl>

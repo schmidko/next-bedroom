@@ -45,7 +45,7 @@ function createPool() {
     });
 
     // Promisify for Node.js async/await.
-    pool.query = util.promisify(pool.query)
+    pool.query = util.promisify(pool.query);
     return pool;
 }
 
