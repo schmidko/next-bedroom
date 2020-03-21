@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         flexGrow: 1,
         minWidth: 300,
+        zIndex: '-10',
         transform: 'translateZ(0)',
         '@media all and (-ms-high-contrast: none)': {
             display: 'none'
