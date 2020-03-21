@@ -1,6 +1,4 @@
-let mysql = require('mysql');
 const path = require('path');
-let dbPool;
 
 require('dotenv').config({
     path: path.join(__dirname, './config/.env')
@@ -11,9 +9,9 @@ require('dotenv').config({
  * @return {object} pool
  */
 function createPool() {
+
     let mysql = require('mysql');
     let util = require('util');
-
     let pool = mysql.createPool({
         connectionLimit: 10,
         host: process.env.MYSQL_HOST,
@@ -41,11 +39,10 @@ function createPool() {
         if (connection) {
             connection.release();
         }
-        return;
     });
 
     // Promisify for Node.js async/await.
-    pool.query = util.promisify(pool.query)
+    pool.query = util.promisify(pool.query);
     return pool;
 }
 
