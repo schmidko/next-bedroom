@@ -35,7 +35,6 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/api', api_router);
-app.use('/auth', auth);
 app.use('/', index_router);
 
 // pass globals to frontend
