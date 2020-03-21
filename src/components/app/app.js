@@ -6,12 +6,13 @@ import history from '../../history';
 import InfoBox from '../info_box/info_box';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import Capacity from '../capacity/capacity';
+import SideBar from '../side_bar/side_bar';
 import Theme from '../app_theme/app_theme';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import mapboxgl from 'mapbox-gl';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import {IconButton} from '@material-ui/core';
+
 
 const Axios = require('axios');
 
@@ -24,7 +25,7 @@ class App extends React.Component {
 
     state = {
         loading: false,
-        isOpen: false,
+        isOpen: true,
         lng: 13.2706,
         lat: 52.5223,
         zoom: 10,
@@ -97,10 +98,14 @@ class App extends React.Component {
                     {coords_bar}
                     <div ref={el => this.mapContainer = el} className='mapContainer' />
                     <InfoBox />
-                    <Fab size="small" variant="round" color="primary" onClick={this.handleOpen}>
-                        <AddIcon  />
-                    </Fab>
-                    {this.state.isOpen && <Capacity isOpen={this.state.isOpen} handleClose={this.handleClose}/>}
+                    {this.state.isOpen ?
+                        <SideBar isOpen={this.state.isOpen} handleClose={this.handleClose}/> :
+                        <div className={"app--switch"}>
+                        <IconButton onClick={this.handleOpen}>
+                            <ChevronLeftIcon />
+                        </IconButton>
+                    </div>
+                    }
                 </div>
             </Theme>
         );

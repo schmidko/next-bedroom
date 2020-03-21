@@ -1,7 +1,7 @@
 import React from 'react';
 import './capacity.scss';
 import PropTypes from "prop-types";
-import {Button, Dialog, DialogActions, DialogTitle, TextField, Input, InputAdornment} from '@material-ui/core';
+import {Button, Box, TextField, Typography} from '@material-ui/core';
 import LocalHotelIcon from '@material-ui/icons/LocalHotel';
 
 const Axios = require('axios');
@@ -36,26 +36,16 @@ class Capacity extends React.Component {
      * @return {null|*}
      */
     render() {
-        return (<Dialog
-            open={this.props.isOpen}
-            onClose={this.props.handleClose}
+        return (<Box
         >
-            <div className="capacity-main">
-                <DialogTitle>Add Bed Capacity</DialogTitle>
-                
+            <div className="capacity--main">
+                <Typography className="title" variant="h6" gutterBottom>Add Bed Capacity</Typography>
                 <form noValidate autoComplete="off">
                     <div className="form-row">
                         <TextField 
                             required fullWidth
                             label="Unique Hospitals Code" 
                             value={this.state.hospitalCode}
-                            inputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <LocalHotelIcon />
-                                  </InputAdornment>
-                                )
-                              }}
                             onChange={(e)=>this.handleChangeInput(e, 'hospitalCode')}
                         />
                     </div>
@@ -84,18 +74,15 @@ class Capacity extends React.Component {
                             value={this.state.freeIntensiveBeds} 
                         />
                     </div>
-                    <DialogActions>
-                        <Button variant="contained" onClick={this.props.handleClose} color="inherit">
-                            Cancel
-                        </Button>
-                        <Button variant="contained" onClick={this.handleSaveCapacity} color="primary">
+                    <div className="form-row">
+                        <Button fullWidth variant="contained" onClick={this.handleSaveCapacity} color="primary">
                             Submit
                         </Button>
-                    </DialogActions>
+                    </div>
 
                 </form>
             </div>        
-        </Dialog>
+        </Box>
         );
     }
 }
@@ -103,7 +90,5 @@ class Capacity extends React.Component {
 export default Capacity;
 
 Capacity.propTypes = {
-    isOpen: PropTypes.bool.isRequired,
-    handleClose: PropTypes.func.isRequired
 };
 

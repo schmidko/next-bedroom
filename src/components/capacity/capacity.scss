@@ -1,19 +1,18 @@
-.capacity-main {
+.capacity--main {
 	display: flex;
     flex-direction: column;
-    padding: 10px;
+    margin: 20px 5px;
 
+    .title {
+        padding: 0 20px;
+    }
     .form-row {
         display: flex;
-        padding: 12px 24px 0 24px;
-    }
-
-    .form-label {
-        padding: 12px 24px 0 24px;
+        padding: 10px 20px 0 20px;
     }
 
     .MuiDialogActions-root {
-        padding: 12px 24px;
+        padding: 10px 20px;
     }
 
     .MuiFormControl-root {
