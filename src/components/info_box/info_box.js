@@ -176,37 +176,6 @@ class InfoBox extends React.Component {
         }
         return (
             <div className="ib--main">
-                {/* <Typography className="title" variant="h6" gutterBottom>Bed Availability</Typography> */}
-                <Box>
-                    <canvas width={260} id="capacity" ref={this.capacityChartRef} />
-                    {/* <Chart
-                        data={this.state.capacityData}
-                        width={240} height={150}
-                    >
-                        <PieSeries
-                            valueField="value"
-                            argumentField="name"
-                        />
-                        <Legend />
-                        <Title text={<div className="chart-title">Bed Capacity</div>}/>
-                    </Chart> */}
-                </Box>
-                <Box>
-                    <canvas width={260} id="trend" ref={this.trendChartRef} />
-                    {/* <Chart
-                        data={this.state.trendData}
-                        width={240} height={150}
-                    >
-                        <LineSeries
-                            valueField="value"
-                            argumentField="date"
-                        />
-                        <ArgumentAxis showLabels={false}/>
-                        <ValueAxis />
-                        <ValueScale name="%" />
-                        <Title text={<div className="chart-title">Bed Trend (Occupied%)</div>}/>
-                    </Chart> */}
-                </Box>
                 <FormControl>
                     <InputLabel >Bezirk</InputLabel>
                     <NativeSelect
@@ -224,6 +193,13 @@ class InfoBox extends React.Component {
                         })}
                     </NativeSelect>
                 </FormControl>
+                <Box>
+                    <canvas width={260} id="capacity" ref={this.capacityChartRef} />
+                </Box>
+                <Box>
+                    <canvas width={260} id="trend" ref={this.trendChartRef} />
+                </Box>
+
                 <Button className="ib--button"
                     size="small" 
                     variant="contained" 
