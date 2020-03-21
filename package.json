@@ -26,8 +26,11 @@
         "express-validator": "^6.3.1",
         "hbs": "^4.1.0",
         "i18n": "0.8.4",
+        "leaflet": "^1.6.0",
+        "mapbox-gl": "^1.8.1",
         "moment": "^2.24.0",
         "mysql": "^2.18.1",
+        "react-leaflet": "^2.6.3",
         "request": "^2.88.0",
         "striptags": "^3.1.1",
         "xlsx": "^0.15.3"

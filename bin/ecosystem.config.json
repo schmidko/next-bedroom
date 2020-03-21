@@ -1,8 +1,8 @@
 {
     "apps": [
         {
-            "name": "fb-fe-4444",
-            "script": "/var/www/node/demo/bin/www",
+            "name": "next-bedroom-12999",
+            "script": "/var/www/node/next_bedroom/bin/www",
             "watch": false,
             "log_date_format": "YYYY-MM-DD HH:mm Z",
             "env": {

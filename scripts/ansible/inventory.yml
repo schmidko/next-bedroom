@@ -1,8 +1,7 @@
 [aws]
-stage ansible_host=stage
-production ansible_host=production
-vm ansible_host=vm
-dev ansible_host=dev
+next-dev ansible_host=next-dev
+next-stage ansible_host=next-stage
+next-production ansible_host=next-production
 
 [aws:vars]
 ansible_python_interpreter=/usr/bin/python3
