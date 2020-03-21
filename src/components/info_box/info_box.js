@@ -5,6 +5,7 @@ import './info_box.scss';
 import history from '../../history';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
+import {Button, Typography} from '@material-ui/core';
 
 const Axios = require('axios');
 
@@ -37,7 +38,7 @@ class InfoBox extends React.Component {
 
         return (
             <div className="ib--main">
-                InfoBox
+                <Typography className="title" variant="h6" gutterBottom>Bed Capacity</Typography>
             </div>
         );
     }
