@@ -1,7 +1,8 @@
 import React from 'react';
 import './capacity.scss';
 import PropTypes from "prop-types";
-import {Button, Dialog, DialogActions, DialogTitle, TextField} from '@material-ui/core';
+import {Button, Dialog, DialogActions, DialogTitle, TextField, Input, InputAdornment} from '@material-ui/core';
+import LocalHotelIcon from '@material-ui/icons/LocalHotel';
 
 const Axios = require('axios');
 
@@ -11,6 +12,7 @@ const Axios = require('axios');
 class Capacity extends React.Component {
 
     state= {
+        hospitalCode: "",
         totalBeds: 300,
         freeBeds: 50,
         totalIntensiveBeds: 100,
@@ -34,7 +36,6 @@ class Capacity extends React.Component {
      * @return {null|*}
      */
     render() {
-
         return (<Dialog
             open={this.props.isOpen}
             onClose={this.props.handleClose}
@@ -43,6 +44,21 @@ class Capacity extends React.Component {
                 <DialogTitle>Add Bed Capacity</DialogTitle>
                 
                 <form noValidate autoComplete="off">
+                    <div className="form-row">
+                        <TextField 
+                            required fullWidth
+                            label="Unique Hospitals Code" 
+                            value={this.state.hospitalCode}
+                            inputProps={{
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <LocalHotelIcon />
+                                  </InputAdornment>
+                                )
+                              }}
+                            onChange={(e)=>this.handleChangeInput(e, 'hospitalCode')}
+                        />
+                    </div>
                     <div className="form-row">
                         <TextField 
                             required id="capacity-input" 
