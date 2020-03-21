@@ -128,7 +128,7 @@ class InfoBox extends React.Component {
                 },
                 title: {
                     display: true,
-                    text: "Bed Trend",
+                    text: "Bed Trend (Occupied %)",
                     position: "top"
                 },
                 scales: {
