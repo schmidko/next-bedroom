@@ -1,13 +1,10 @@
 import React, {useState} from 'react';
 import './capacity.scss';
 import PropTypes from "prop-types";
-import {Button, Box, TextField, Typography, Snackbar} from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
+import {Button, Box, TextField, Typography, Snackbar, SnackbarContent} from '@material-ui/core';
 
 const Axios = require('axios');
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+
 /**
  * App
  */
@@ -110,20 +107,22 @@ class Capacity extends React.Component {
             <Snackbar
                 open={this.state.showMessage}
                 onClose={()=>this.setState({showMessage: false})}
-                autoHideDuration={50000}
+                autoHideDuration={5000}
                 anchorOrigin={{vertical: 'top', horizontal: 'center'}}
-                className={this.state.type === "error" ? "error" : "success"}
+                ContentProps={{backgroundColor: this.state.type === 'error' ? '#E00000': '#13D246'}}
             >
-                <Alert onClose={()=>this.setState({showMessage: false})} severity="success">
-                    {this.state.message}
-                </Alert>
+                <SnackbarContent
+                    className="success"
+                    message={this.state.message}
+                    onClose={()=>this.setState({showMessage: false})}
+                />
             </Snackbar>       
         </Box>
         );
     }
 }
 
-export default Capacity;
+export default (Capacity);
 
 Capacity.propTypes = {
 };

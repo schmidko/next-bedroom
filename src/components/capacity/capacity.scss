@@ -18,16 +18,16 @@
     .MuiFormControl-root {
         margin: 0 5px;
     }
-
+    .MuiSnackbar-root {
+        .error {
+            background-color: #E00000;
+            font: #ffffff;
+        }
+        .success {
+            background-color: #13D246;
+        }
+    }
     #capacity-input {
         text-align: right;
-    }
-
-    .error {
-        background-color: #E00000;
-        font: #ffffff;
-    }
-    .success {
-        background-color: #13D246;
     }
 }
