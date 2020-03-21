@@ -4,7 +4,7 @@ const i18n = require('i18n');
 const session = require('express-session');
 const index_router = require('./routes/index');
 const api_router = require('./routes/api');
-const {auth: auth} = require('@nextds/nextlogin/lib/backend');
+// const {auth: auth} = require('@nextds/nextlogin/lib/backend');
 const webpack_config = require('../webpack.config.local');
 
 global.__basepath = path.join(__dirname, '../');
@@ -49,7 +49,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/api', api_router);
 app.use('*', index_router);
-app.use('/auth', auth);
+// app.use('/auth', auth);
 
 // pass globals to frontend
 app.locals.debug = process.env.DEBUG;

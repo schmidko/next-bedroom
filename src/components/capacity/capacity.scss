@@ -1,0 +1,26 @@
+.capacity-main {
+	display: flex;
+    flex-direction: column;
+    padding: 10px;
+
+    .form-row {
+        display: flex;
+        padding: 12px 24px 0 24px;
+    }
+
+    .form-label {
+        padding: 12px 24px 0 24px;
+    }
+
+    .MuiDialogActions-root {
+        padding: 12px 24px;
+    }
+
+    .MuiFormControl-root {
+        margin: 0 5px;
+    }
+
+    #capacity-input {
+        text-align: right;
+    }
+}

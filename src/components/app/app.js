@@ -5,6 +5,10 @@ import './app.scss';
 import history from '../../history';
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import Capacity from '../capacity/capacity';
+import Theme from '../app_theme/app_theme';
 
 const Axios = require('axios');
 
@@ -15,6 +19,7 @@ class App extends React.Component {
 
     state = {
         loading: false,
+        isOpen: false
     };
 
     /**
@@ -35,7 +40,18 @@ class App extends React.Component {
         this.props.dispatch(saveUserObject(user_object));
         this.setState({loading: false});
     }
-
+    /**
+     * handleOpen
+     */
+    handleOpen = () => {
+        this.setState({isOpen: true});
+    }
+    /**
+     * handleClose
+     */
+    handleClose = () => {
+        this.setState({isOpen: false});
+    }
     /**
      * @return {null|*}
      */
@@ -45,9 +61,15 @@ class App extends React.Component {
         }
 
         return (
-            <div>
-                Hello World!!!
-            </div>
+            <Theme>
+                <div>
+                    Hello World!!!
+                    &nbsp;<Fab size="small" variant="round" color="primary" onClick={this.handleOpen}>
+                        <AddIcon  />
+                    </Fab>
+                    {this.state.isOpen && <Capacity isOpen={this.state.isOpen} handleClose={this.handleClose}/>}
+                </div>
+            </Theme>
         );
     }
 }
