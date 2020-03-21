@@ -94,8 +94,14 @@ class App extends React.Component {
                     {coords_bar}
                     <div ref={el => this.mapContainer = el} className='mapContainer' />
                     <InfoBox handleToggle={this.handleToggle} />
-                    {this.state.isOpen &&
-                        <SideBar isOpen={this.state.isOpen} handleClose={this.handleToggle}/>
+                    {this.state.isOpen ?
+                        <SideBar isOpen={this.state.isOpen} handleClose={this.handleToggle}/>:
+                        <div className={"app--switch"}>
+                            <IconButton onClick={this.handleToggle}>
+                                <ChevronLeftIcon />
+                            </IconButton>
+                        </div>
+
                     }
                 </div>
             </Theme>
