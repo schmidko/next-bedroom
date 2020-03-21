@@ -2,9 +2,12 @@ import React, {useState} from 'react';
 import './capacity.scss';
 import PropTypes from "prop-types";
 import {Button, Box, TextField, Typography, Snackbar, SnackbarContent} from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const Axios = require('axios');
-
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 /**
  * App
  */
@@ -111,11 +114,14 @@ class Capacity extends React.Component {
                 anchorOrigin={{vertical: 'top', horizontal: 'center'}}
                 ContentProps={{backgroundColor: this.state.type === 'error' ? '#E00000': '#13D246'}}
             >
-                <SnackbarContent
+                <Alert onClose={()=>this.setState({showMessage: false})} severity={this.state.type==="error" ? "error":"success"}>
+                    {this.state.message}
+                </Alert>
+                {/* <SnackbarContent
                     className="success"
                     message={this.state.message}
                     onClose={()=>this.setState({showMessage: false})}
-                />
+                /> */}
             </Snackbar>       
         </Box>
         );
