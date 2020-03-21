@@ -5,6 +5,7 @@ import './info_box.scss';
 import history from '../../history';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
+import {Button} from '@material-ui/core';
 
 const Axios = require('axios');
 
@@ -23,6 +24,11 @@ class InfoBox extends React.Component {
     componentDidMount() {
         //this.loadUserObject();
 
+
+    }
+
+    handleButton() {
+        this.setState({});
         
     }
 
@@ -37,7 +43,14 @@ class InfoBox extends React.Component {
 
         return (
             <div className="ib--main">
-                InfoBox
+                <Button className="ib--button"
+                    size="small" 
+                    variant="contained" 
+                    color="primary"
+                    onClick={() => this.props.handleToggle()}
+                >
+                    Bettenbelegung melden!
+                </Button>
             </div>
         );
     }

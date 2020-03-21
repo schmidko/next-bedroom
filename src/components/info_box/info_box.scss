@@ -1,5 +1,8 @@
 .ib--main {
-    position: absolute;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
     width: 300px;
     height: 400px;
     top: 20px;
@@ -7,4 +10,9 @@
     z-index: 1000;
     background: #fff;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.ib--button {
+    height: 30px;
+    bottom: 15px;
 }
