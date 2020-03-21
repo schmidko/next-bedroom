@@ -29,8 +29,9 @@ class Capacity extends React.Component {
     /**
      * handleSaveCapacity
      */
-    handleSaveCapacity = () => {
-
+    handleSaveCapacity = async() => {
+        const result = await Axios.post('/api/save');
+        console.log('result', result);
     }
     /**
      * @return {null|*}
