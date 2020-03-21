@@ -24,6 +24,11 @@ class InfoBox extends React.Component {
     componentDidMount() {
         //this.loadUserObject();
 
+
+    }
+
+    handleButton() {
+        this.setState({});
         
     }
 
@@ -39,6 +44,14 @@ class InfoBox extends React.Component {
         return (
             <div className="ib--main">
                 <Typography className="title" variant="h6" gutterBottom>Bed Capacity</Typography>
+                <Button className="ib--button"
+                    size="small" 
+                    variant="contained" 
+                    color="primary"
+                    onClick={() => this.props.handleToggle()}
+                >
+                    Bettenbelegung melden!
+                </Button>
             </div>
         );
     }

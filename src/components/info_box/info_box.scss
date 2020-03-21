@@ -1,5 +1,8 @@
 .ib--main {
-    position: absolute;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
     width: 300px;
     height: 400px;
     top: 20px;
@@ -11,4 +14,9 @@
     .title {
         padding: 0 20px;
     }
+}
+
+.ib--button {
+    height: 30px;
+    bottom: 15px;
 }

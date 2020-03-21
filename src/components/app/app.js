@@ -25,7 +25,7 @@ class App extends React.Component {
 
     state = {
         loading: false,
-        isOpen: true,
+        isOpen: false,
         lng: 13.2706,
         lat: 52.5223,
         zoom: 10,
@@ -65,18 +65,14 @@ class App extends React.Component {
         this.props.dispatch(saveUserObject(user_object));
         this.setState({loading: false});
     }
+
     /**
-     * handleOpen
+     * handleToggle
      */
-    handleOpen = () => {
-        this.setState({isOpen: true});
+    handleToggle = () => {
+        this.setState({isOpen: !this.state.isOpen});
     }
-    /**
-     * handleClose
-     */
-    handleClose = () => {
-        this.setState({isOpen: false});
-    }
+    
     /**
      * @return {null|*}
      */
@@ -97,14 +93,14 @@ class App extends React.Component {
                 <div>
                     {coords_bar}
                     <div ref={el => this.mapContainer = el} className='mapContainer' />
-                    <InfoBox />
+                    <InfoBox handleToggle={this.handleToggle} />
                     {this.state.isOpen ?
-                        <SideBar isOpen={this.state.isOpen} handleClose={this.handleClose}/> :
+                        <SideBar isOpen={this.state.isOpen} handleClose={this.handleToggle}/> :
                         <div className={"app--switch"}>
-                        <IconButton onClick={this.handleOpen}>
-                            <ChevronLeftIcon />
-                        </IconButton>
-                    </div>
+                            <IconButton onClick={this.handleToggle}>
+                                <ChevronLeftIcon />
+                            </IconButton>
+                        </div>
                     }
                 </div>
             </Theme>
