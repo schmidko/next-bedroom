@@ -14,10 +14,22 @@
 
     .title {
         margin: 20px;
+        font-size: 16px;
+    }
+    .chart-title {
+        font-size: 16px;
+        font-weight: 800;
     }
 
     .select {
         width: 240px;
+    }
+
+    .LegendItem-root-40 {
+        padding: 2px;
+    }
+    .MuiTypography-body1 {
+        font-size: 12px;
     }
 
     .ib--button {
