@@ -34,6 +34,32 @@ class Capacity {
             .catch((error) => res.status(500).send({error}));
     }
 
+    /**
+     * save bed capacity
+     * @param {Request} req
+     * @param {Response} res
+     * @return {Response}
+     */
+    allBeds(req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
+        const sql = 
+            'SELECT i.hospital_id, b.beds_normal_gesamt, b.beds_intensiv_gesamt,'+
+            '       b.beds_normal_free, b.beds_intensiv_free, b.timest '+
+            'FROM (SELECT hospital_id, MAX(timest) AS latest FROM beds '+
+            '      GROUP BY hospital_id) AS i ' +
+            'JOIN beds b ON b.hospital_id = i.hospital_id AND b.timest = i.latest '+
+            'ORDER BY i.hospital_id;';
+
+        return DB.query(sql)
+            .then((result) => {
+                res.send(result);
+            })
+            .catch((error) => res.status(500).send({error}));
+    }
+
 }
 
 module.exports = new Capacity();

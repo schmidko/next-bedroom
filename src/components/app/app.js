@@ -90,7 +90,8 @@ class App extends React.PureComponent {
                 <div className="app--main">
                     <InfoBox 
                         handleToggle={this.handleToggle}
-                        handleImpressumOpen={this.handleImpressumOpen}    
+                        handleImpressumOpen={this.handleImpressumOpen}
+                        hospitals={this.state.hospitals}
                     />
                     {this.state.isOpen ?
                         <SideBar isOpen={this.state.isOpen} handleClose={this.handleToggle}/>:

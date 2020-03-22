@@ -26,7 +26,6 @@ class InfoBox extends React.Component {
         // init state
         this.state = {
             loading: true,
-            hospitals: [],
             selectedHospitals: [],
             capacityData: [],
             trendData: [],
@@ -48,17 +47,26 @@ class InfoBox extends React.Component {
      * loadData
      */
     loadData = async () => {
-        let hospitals = [];
-        await Axios.get('/api/all-hospitals?offset=0&limit=5000')
+        let beds = [];
+        console.log('hospitals', this.props.hospitals);
+        await Axios.get('/api/all-beds?offset=0&limit=5000')
             .then((result)=>{
-                hospitals = result.data.hospitals;
+                console.log('result', result);
+                beds = result.data;
             })
             .catch((e)=>{
                 console.error(e);
             })
+        let all = 0;
+        let free = 0;
+        beds.map((bed)=>{
+            all += bed.beds_normal_gesamt;
+            free += bed.beds_normal_free;
+        });
+
         const capacityData = [
-            {name: "Occupied", value: 1200},
-            {name: "Free", value: 150}
+            {name: "Occupied", value: all-free},
+            {name: "Free", value: free}
         ];
         const trendData = [
             { date: "2020-03-24", value: 80 },
@@ -70,7 +78,6 @@ class InfoBox extends React.Component {
         ]
 
         this.setState({
-            hospitals: hospitals,
             capacityData: capacityData,
             trendData: trendData,
             loading: false
@@ -206,16 +213,17 @@ class InfoBox extends React.Component {
             return null;
         }
         let hospitals_list = [];
-        console.log('hospitals', this.state.hospitals);
-        if (this.state.hospital && this.state.hospitals.length >= 1) {
-           hospitals_list =  this.state.hospitals.filter((hospital)=>!hospital.selected);
+        if (this.props.hospitals && this.props.hospitals.length >= 1) {
+           this.props.hospitals.map((hospital)=>{
+               hospitals_list.push({id:hospital.id, name: hospital.name});
+           });
         }
         const query = this.state.search;
         if(query && query.length >= 1) {
             hospitals_list = [];
-            this.state.hospitals.map(hospital => {
+            this.props.hospitals.map(hospital => {
                 if(hospital.name.toLowerCase().includes(query)) {
-                    hospitals_list.push(hospital);
+                    hospitals_list.push({id:hospital.id, name: hospital.name});
                 };
             })    
         }
@@ -277,7 +285,8 @@ const mapStateToProps = (state) => {
 export default hot(connect(mapStateToProps)(InfoBox));
 
 InfoBox.propTypes = {
-    dispatch: PropTypes.func,
-    user_object: PropTypes.object
+    hospitals: PropTypes.array,
+    handleImpressumOpen: PropTypes.func,
+    handleToggle: PropTypes.func
 };
 
