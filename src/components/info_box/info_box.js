@@ -5,9 +5,8 @@ import './info_box.scss';
 import history from '../../history';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import {Button, Typography, NativeSelect, FormControl, InputLabel, Box} from '@material-ui/core';
+import {Button, Typography, NativeSelect, FormControl, InputLabel, Box, Modal} from '@material-ui/core';
 import Chart from "chart.js";
-
 
 const Axios = require('axios');
 
@@ -67,12 +66,12 @@ class InfoBox extends React.Component {
             {name: "Free", value: 150}
         ];
         const trendData = [
-            {date: "2020-03-24", value: 80},
-            {date: "2020-03-25", value: 85},
-            {date: "2020-03-26", value: 92},
-            {date: "2020-03-27", value: 88},
-            {date: "2020-03-28", value: 89},
-            {date: "2020-03-29", value: 93},
+            { date: "2020-03-24", value: 80 },
+            { date: "2020-03-25", value: 85 },
+            { date: "2020-03-26", value: 92 },
+            { date: "2020-03-27", value: 88 },
+            { date: "2020-03-28", value: 89 },
+            { date: "2020-03-29", value: 93 },
         ]
 
         this.setState({
@@ -80,22 +79,22 @@ class InfoBox extends React.Component {
             capacityData: capacityData,
             trendData: trendData,
             loading: false
-        }, ()=>this.setChart());
+        }, () => this.setChart());
     }
 
     setChart = () => {
         // Capacity Chart
         const myCapaChartRef = this.capacityChartRef.current.getContext("2d");
-        const capaLabels = this.state.capacityData.map((item)=>item.name);
-        const capaValues = this.state.capacityData.map((item)=>item.value);
+        const capaLabels = this.state.capacityData.map((item) => item.name);
+        const capaValues = this.state.capacityData.map((item) => item.value);
         new Chart(myCapaChartRef, {
             type: 'pie',
             data: {
                 labels: capaLabels,
                 datasets: [{
                     data: capaValues,
-                    backgroundColor: ["#97c4db","#c1e3f5"]
-                }],  
+                    backgroundColor: ["#97c4db", "#c1e3f5"]
+                }],
             },
             options: {
                 legend: {
@@ -111,8 +110,8 @@ class InfoBox extends React.Component {
 
         // Trend Chart
         const myTrendChartRef = this.trendChartRef.current.getContext("2d");
-        const trendLabels = this.state.trendData.map((item)=>item.date);
-        const trendValues = this.state.trendData.map((item)=>item.value);
+        const trendLabels = this.state.trendData.map((item) => item.date);
+        const trendValues = this.state.trendData.map((item) => item.value);
         new Chart(myTrendChartRef, {
             type: 'line',
             data: {
@@ -120,7 +119,7 @@ class InfoBox extends React.Component {
                 datasets: [{
                     data: trendValues,
                     backgroundColor: "#97c4db"
-                }],  
+                }],
             },
             options: {
                 legend: {
@@ -164,7 +163,7 @@ class InfoBox extends React.Component {
 
     handleButton() {
         this.setState({});
-        
+
     }
 
     /**
@@ -174,6 +173,7 @@ class InfoBox extends React.Component {
         if (this.state.loading === true) {
             return null;
         }
+
         return (
             <div className="ib--main">
                 <FormControl>
@@ -188,7 +188,7 @@ class InfoBox extends React.Component {
                         }}
                     >
                         <option key="all" value="All">All</option>
-                        {this.state.bezirke.map((bezirk)=>{
+                        {this.state.bezirke.map((bezirk) => {
                             return <option key={bezirk} value={bezirk}>{bezirk}</option>;
                         })}
                     </NativeSelect>
@@ -201,13 +201,20 @@ class InfoBox extends React.Component {
                 </Box>
 
                 <Button className="ib--button"
-                    size="small" 
-                    variant="contained" 
+                    size="small"
+                    variant="contained"
                     color="primary"
                     onClick={() => this.props.handleToggle()}
                 >
                     Bettenbelegung melden!
                 </Button>
+                <div onClick={() => this.props.handleImpressumOpen()}>
+                    <Typography className="ib--impressum" variant="caption" display="block" gutterBottom>
+                        Impressum
+                    </Typography>
+                </div>
+                
+                
             </div>
         );
     }
