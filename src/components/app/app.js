@@ -57,7 +57,6 @@ class App extends React.PureComponent {
     async loadHospitals() {
         const data = await Axios.get('/api/all-hospitals');
         const hospitals = data.data.hospitals;
-        console.log(hospitals);
         
         this.setState({loading: false, hospitals: hospitals});
     }
@@ -80,8 +79,6 @@ class App extends React.PureComponent {
         if (this.state.loading === true) {
             return null;
         }
-
-        let hospitals = this.state.hospitals;
 
         return (
             <Theme>
@@ -108,7 +105,7 @@ class App extends React.PureComponent {
                         onViewportChange={viewport => this.setState({viewport})}
                         mapboxApiAccessToken={accessToken}
                     >    
-                        <HospitalMarker hospitals={hospitals} />
+                        <HospitalMarker hospitals={this.state.hospitals} />
                     </ReactMapGL>
                     <Impressum is_impressum_open={this.state.is_impressum_open} open={true} handleImpressumOpen={this.handleImpressumOpen} />
                 </div>
