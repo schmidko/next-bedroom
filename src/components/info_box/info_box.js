@@ -9,7 +9,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import {Button, Box, TextField, Typography} from '@material-ui/core';
 import Chart from "chart.js";
 import AddIcon from '@material-ui/icons/Add';
-
+const moment = require('moment');
 const Axios = require('axios');
 
 /**
@@ -75,20 +75,26 @@ class InfoBox extends React.Component {
             .catch((e)=>{
                 console.error(e);
             })
-        console.log('trends', trends);
+        let occupied = [];
+        trends.map((trend)=>{
+            const occupiedPercent =  Math.round((trend.beds_normal_gesamt - trend.beds_normal_free) / trend.beds_normal_gesamt * 100);
+            occupied.push({ date: moment(trend.timest).format('YYYY-MM-DD HH:mm'), value: occupiedPercent });
+        })
+        console.log('occupied', occupied);
+
         // let occupied = trends
-        const trendData = [
-            { date: "2020-03-24", value: 80 },
-            { date: "2020-03-25", value: 85 },
-            { date: "2020-03-26", value: 92 },
-            { date: "2020-03-27", value: 88 },
-            { date: "2020-03-28", value: 89 },
-            { date: "2020-03-29", value: 93 },
-        ]
+        // const trendData = [
+        //     { date: "2020-03-24", value: 80 },
+        //     { date: "2020-03-25", value: 85 },
+        //     { date: "2020-03-26", value: 92 },
+        //     { date: "2020-03-27", value: 88 },
+        //     { date: "2020-03-28", value: 89 },
+        //     { date: "2020-03-29", value: 93 },
+        // ]
 
         this.setState({
             capacityData: capacityData,
-            trendData: trendData,
+            trendData: occupied,
             loading: false
         }, () => this.setChart());
     }
