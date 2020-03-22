@@ -15,6 +15,7 @@ import ReactMapGL, {Marker} from 'react-map-gl';
 import {LocalHospital} from '@material-ui/icons';
 import Impressum from "../impressum/impressum";
 import HospitalMarker from "../hospital_marker/hospital_marker";
+import HotspotMarker from "../hotspot_marker/hotspot_marker";
 
 const Axios = require('axios');
 const accessToken = 'pk.eyJ1Ijoic2NobWlka28iLCJhIjoiY2s4MWM2YjE3MG00dzNscnU2eW0zMGd0MyJ9.H2i8YL6U3FGHPfyaJCWyyQ';
@@ -59,7 +60,14 @@ class App extends React.PureComponent {
         const hospitals = data.data.hospitals;
         console.log(hospitals);
         
-        this.setState({loading: false, hospitals: hospitals});
+        const hotspots = await Axios.get('/api/all-hotspots');
+        console.log('data', hotspots.data.hotspots);
+
+        this.setState({
+            loading: false, 
+            hospitals: hospitals, 
+            hotspots: hotspots.data.hotspots
+        });
     }
 
     /**
@@ -83,7 +91,7 @@ class App extends React.PureComponent {
             return null;
         }
 
-        let hospitals = this.state.hospitals;
+        let {hospitals, hotspots} = this.state;
 
         return (
             <Theme>
@@ -111,6 +119,7 @@ class App extends React.PureComponent {
                         mapboxApiAccessToken={accessToken}
                     >    
                         <HospitalMarker hospitals={hospitals} />
+                        <HotspotMarker hotspots={hotspots} />
                     </ReactMapGL>
                     <Impressum is_impressum_open={this.state.is_impressum_open} open={true} handleImpressumOpen={this.handleImpressumOpen} />
                 </div>
