@@ -1,6 +1,8 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
-import {Link, Modal, Typography} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Link, Modal, Typography, Chip} from '@material-ui/core';
+import {Face} from '@material-ui/icons';
+
 import './impressum.scss';
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1),
         alignItems: 'center',
         justifyContent: 'center'
-        
+
     },
     paper: {
         width: 500,
@@ -43,7 +45,7 @@ export default function ServerModal(props) {
 
     let root_style = {};
     if (props.is_impressum_open) {
-        root_style = {zIndex: '2000'};
+        root_style = { zIndex: '2000' };
     }
 
     return (
@@ -62,7 +64,7 @@ export default function ServerModal(props) {
             >
                 <div className={classes.paper}>
                     <h2 id="server-modal-title">Impressum</h2>
-                    <p id="server-modal-description" className="im--description">
+                    <div id="server-modal-description" className="im--description">
                         <img className="mb10" src="/images/2020-03-18-hackathon.jpg" width="400" />
                         <Typography variant="h6">
                             <Link href="https://wirvsvirushackathon.org/">https://wirvsvirushackathon.org</Link>
@@ -70,7 +72,56 @@ export default function ServerModal(props) {
                         <Typography variant="h6">
                             <Link href="https://www.bundesregierung.de/breg-de/themen/coronavirus/wir-vs-virus-1731968">https://www.bundesregierung.de</Link>
                         </Typography>
-                    </p>
+                        <Typography className="im--team" variant="h6">
+                            Team next-bedroom.de
+                        </Typography>
+                        <div className="im--names mt10">
+                            <div className="mb5">
+                                <Chip
+                                    className="mr5"
+                                    size="small"
+                                    icon={<Face />}
+                                    label="Nobuko"
+                                    variant="outlined"
+                                />
+                                <Chip
+                                    className="mr5"
+                                    size="small"
+                                    icon={<Face />}
+                                    label="Daniela"
+                                    variant="outlined"
+                                />
+                                <Chip
+                                    size="small"
+                                    icon={<Face />}
+                                    label="Sonja"
+                                    variant="outlined"
+                                />
+                            </div>
+                            <div>
+                                <Chip
+                                    className="mr5"
+                                    size="small"
+                                    icon={<Face />}
+                                    label="Stephan"
+                                    variant="outlined"
+                                />
+                                <Chip
+                                    className="mr5"
+                                    size="small"
+                                    icon={<Face />}
+                                    label="Stephan"
+                                    variant="outlined"
+                                />
+                                <Chip
+                                    size="small"
+                                    icon={<Face />}
+                                    label="Alex"
+                                    variant="outlined"
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </Modal>
         </div>

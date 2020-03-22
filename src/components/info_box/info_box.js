@@ -48,10 +48,8 @@ class InfoBox extends React.Component {
      */
     loadData = async () => {
         let beds = [];
-        console.log('hospitals', this.props.hospitals);
         await Axios.get('/api/all-beds?offset=0&limit=5000')
             .then((result)=>{
-                console.log('result', result);
                 beds = result.data;
             })
             .catch((e)=>{

@@ -58,7 +58,6 @@ class App extends React.PureComponent {
     async loadHospitals() {
         const data = await Axios.get('/api/all-hospitals');
         const hospitals = data.data.hospitals;
-        console.log(hospitals);
         
         const hotspots = await Axios.get('/api/all-hotspots');
         console.log('data', hotspots.data.hotspots);
@@ -78,8 +77,6 @@ class App extends React.PureComponent {
     }
     
     handleImpressumOpen = () => {
-        console.log('juu');
-        
         this.setState({is_impressum_open: !this.state.is_impressum_open});
     }
 
