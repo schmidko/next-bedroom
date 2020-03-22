@@ -14,6 +14,7 @@ import {IconButton} from '@material-ui/core';
 import ReactMapGL, {Marker} from 'react-map-gl';
 import {LocalHospital} from '@material-ui/icons';
 import Impressum from "../impressum/impressum";
+import HospitalMarker from "../hospital_marker/hospital_marker";
 
 const Axios = require('axios');
 const accessToken = 'pk.eyJ1Ijoic2NobWlka28iLCJhIjoiY2s4MWM2YjE3MG00dzNscnU2eW0zMGd0MyJ9.H2i8YL6U3FGHPfyaJCWyyQ';
@@ -21,10 +22,10 @@ const accessToken = 'pk.eyJ1Ijoic2NobWlka28iLCJhIjoiY2s4MWM2YjE3MG00dzNscnU2eW0z
 /**
  * App
  */
-class App extends React.Component {
+class App extends React.PureComponent {
 
     state = {
-        loading: false,
+        loading: true,
         isOpen: false,
         coords_bar: false,
         is_impressum_open: false,
@@ -41,7 +42,7 @@ class App extends React.Component {
      * lifecycle hook
      */
     componentDidMount() {
-        // this.loadUserObject();
+        this.loadHospitals();
         // style: 'mapbox://styles/mapbox/light-v10',
         // mapbox://styles/schmidko/ck81smuov26lq1ipejf1oizd3
         this.point_x = 52.476656;
@@ -53,12 +54,12 @@ class App extends React.Component {
      * load user object from backend
      * @return {array}
      */
-    async loadUserObject() {
-        const data = await Axios.get('/auth/user_object');
-        const user_object = data.data.user_object;
-
-        this.props.dispatch(saveUserObject(user_object));
-        this.setState({loading: false});
+    async loadHospitals() {
+        const data = await Axios.get('/api/all-hospitals');
+        const hospitals = data.data.hospitals;
+        console.log(hospitals);
+        
+        this.setState({loading: false, hospitals: hospitals});
     }
 
     /**
@@ -82,6 +83,8 @@ class App extends React.Component {
             return null;
         }
 
+        let hospitals = this.state.hospitals;
+
         return (
             <Theme>
                 <div className="app--main">
@@ -102,14 +105,7 @@ class App extends React.Component {
                         onViewportChange={viewport => this.setState({viewport})}
                         mapboxApiAccessToken={accessToken}
                     >    
-                        <Marker latitude={this.point_x} longitude={this.point_y} offsetLeft={-20} offsetTop={-10}>
-                            <div
-                                className="app--hospital-box"
-                            >
-                                <LocalHospital style={{color: "#4caf50"}} />
-                                <div>202</div>
-                            </div>
-                        </Marker>
+                        <HospitalMarker hospitals={hospitals} />
                     </ReactMapGL>
                     <Impressum is_impressum_open={this.state.is_impressum_open} open={true} handleImpressumOpen={this.handleImpressumOpen} />
                 </div>
