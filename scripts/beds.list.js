@@ -13,8 +13,7 @@ const genereateBeds = (id, normal_betten, intensiv_betten) => {
     const result = [];
     const startdate = moment();
 
-    for (let i = 0; i < 30; i++) {
-        startdate.subtract(1, 'days');
+    for (let i = 0; i < 7; i++) {
         result.push([
             id,
             normal_betten,
@@ -23,6 +22,8 @@ const genereateBeds = (id, normal_betten, intensiv_betten) => {
             intensiv_betten - getRandomIntInclusive(0, intensiv_betten),
             startdate.format('YYYY-MM-DD HH:mm:ss')
         ]);
+
+        startdate.subtract(1, 'days');
     }
 
     return result.join("\n");
