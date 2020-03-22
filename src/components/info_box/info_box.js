@@ -66,6 +66,17 @@ class InfoBox extends React.Component {
             {name: "Occupied", value: all-free},
             {name: "Free", value: free}
         ];
+
+        let trends = [];
+        await Axios.get('/api/all-trend?offset=0&limit=5000')
+            .then((result)=>{
+                trends = result.data;
+            })
+            .catch((e)=>{
+                console.error(e);
+            })
+        console.log('trends', trends);
+        // let occupied = trends
         const trendData = [
             { date: "2020-03-24", value: 80 },
             { date: "2020-03-25", value: 85 },

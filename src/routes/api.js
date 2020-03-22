@@ -50,6 +50,10 @@ app.get('/all-beds', [
     check('limit').isInt().trim().escape(),
     check('offset').isInt().trim().escape() 
 ], Capacity.allBeds);
+app.get('/all-trend', [
+    check('limit').isInt().trim().escape(),
+    check('offset').isInt().trim().escape() 
+], Capacity.allTrend);
 
 
 module.exports = app;
