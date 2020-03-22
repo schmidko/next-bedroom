@@ -5,14 +5,17 @@
 	width: 100%;
 	height: 100vh;
 }
-
-.app--hospital-box {
-	display: flex;
-	align-items: center;
-	background: #fff;
-	padding-right: 3px;
-	border-radius: 3px;
+.hospital-wrapper {
+	z-index: 3;
+	.app--hospital-box {
+		display: flex;
+		align-items: center;
+		background: #fff;
+		padding-right: 3px;
+		border-radius: 3px;
+	}
 }
+
 .app--hotspot-circle {
 	border-radius: 50%;
 	background-color: rgba(255, 0, 0, 0.4);

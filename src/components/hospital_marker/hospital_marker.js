@@ -25,8 +25,7 @@ class HospitalMarker extends PureComponent {
             const beds_normal_gesamt = hospital.beds[0].beds_normal_gesamt;
 
             hospitals_jsx.push(
-
-                <Marker key={key} latitude={lat} longitude={long} offsetLeft={-20} offsetTop={-10}>
+                <Marker key={key} latitude={lat} longitude={long} offsetLeft={-20} offsetTop={-10} className="hospital-wrapper">
                     <Tooltip
                         title={
                             <React.Fragment>
@@ -42,7 +41,6 @@ class HospitalMarker extends PureComponent {
                         </div>
                     </Tooltip>
                 </Marker>
-
             );
         }
 
