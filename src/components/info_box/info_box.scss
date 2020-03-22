@@ -1,5 +1,5 @@
 .ib--main {
-    position: relative;
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -36,4 +36,9 @@
         height: 30px;
         margin: 10px 0;
     }
+
+}
+
+.ib--impressum {
+    cursor: pointer;
 }
