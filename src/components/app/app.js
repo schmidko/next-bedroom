@@ -70,8 +70,6 @@ class App extends React.PureComponent {
     }
     
     handleImpressumOpen = () => {
-        console.log('juu');
-        
         this.setState({is_impressum_open: !this.state.is_impressum_open});
     }
 
