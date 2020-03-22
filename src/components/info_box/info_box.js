@@ -6,7 +6,7 @@ import history from '../../history';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import {Button, InputLabel, Box, TextField, Fab} from '@material-ui/core';
+import {Button, Box, TextField, Typography} from '@material-ui/core';
 import Chart from "chart.js";
 import AddIcon from '@material-ui/icons/Add';
 
@@ -51,7 +51,7 @@ class InfoBox extends React.Component {
         let hospitals = [];
         await Axios.get('/api/all-hospitals?offset=0&limit=5000')
             .then((result)=>{
-                hospitals = result.data;
+                hospitals = result.data.hospitals;
             })
             .catch((e)=>{
                 console.error(e);
@@ -205,7 +205,11 @@ class InfoBox extends React.Component {
         if (this.state.loading === true) {
             return null;
         }
-        let hospitals_list = this.state.hospitals.filter((hospital)=>!hospital.selected)
+        let hospitals_list = [];
+        console.log('hospitals', this.state.hospitals);
+        if (this.state.hospital && this.state.hospitals.length >= 1) {
+           hospitals_list =  this.state.hospitals.filter((hospital)=>!hospital.selected);
+        }
         const query = this.state.search;
         if(query && query.length >= 1) {
             hospitals_list = [];
