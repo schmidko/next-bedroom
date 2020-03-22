@@ -23,7 +23,6 @@ app.get('/all-hospitals', async (req, res) => {
     });
 });
 
-<<<<<<< HEAD
 app.post('/save', [
     check('totalBeds').isInt().trim().escape(),
     check('freeBeds').isInt().trim().escape(),
@@ -31,7 +30,6 @@ app.post('/save', [
     check('freeIntensiveBeds').isInt().trim().escape()    
 ], Capacity.saveCapacity);
 
-=======
 app.get('/all-hotspots', async (req, res) => {
 
     const q1 = DB.query("SELECT * FROM bedroom.hotspots;");
@@ -42,6 +40,5 @@ app.get('/all-hotspots', async (req, res) => {
         });
     });
 });
->>>>>>> 99abdfe1712fb90e256ab95bfbf6c39aee32dcca
 
 module.exports = app;
