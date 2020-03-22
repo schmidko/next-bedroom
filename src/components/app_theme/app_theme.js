@@ -12,10 +12,10 @@ const theme = createMuiTheme({
             main: '#F2F2F2'
         },
         success: {
-            main: '#13D246'
+            main: '#0f9960'
         },
         error: {
-            main: '#E00000'
+            main: '#db3737'
         },
         warning: {
             main: '#E2B236'

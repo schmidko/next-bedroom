@@ -5,8 +5,10 @@ import './info_box.scss';
 import history from '../../history';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import {Button, Typography, NativeSelect, FormControl, InputLabel, Box, Modal} from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import {Button, InputLabel, Box, TextField, Fab} from '@material-ui/core';
 import Chart from "chart.js";
+import AddIcon from '@material-ui/icons/Add';
 
 const Axios = require('axios');
 
@@ -24,10 +26,11 @@ class InfoBox extends React.Component {
         // init state
         this.state = {
             loading: true,
-            bezirke: [],
-            selectedBezirk: "All",
+            hospitals: [],
+            selectedHospitals: [],
             capacityData: [],
-            trendData: []
+            trendData: [],
+            search: ""
         };
 
         this.capacityChartRef = React.createRef();
@@ -44,23 +47,15 @@ class InfoBox extends React.Component {
     /**
      * loadData
      */
-    loadData = () => {
-        const bezirke = [
-            "Mitte",
-            "Friedrichshain-Kreuzberg",
-            "Pankow",
-            "Charlottenburg-Wilmersdorf",
-            "Spandau",
-            "Steglitz-Zehlendorf",
-            "Tempelhof-Schöneberg",
-            "Neukölln",
-            "Treptow-Köpenick",
-            "Marzahn-Hellersdorf",
-            "Lichtenberg",
-            "Reinickendorf"
-        ];
-        // https://de.wikipedia.org/wiki/Verwaltungsgliederung_Berlins
-
+    loadData = async () => {
+        let hospitals = [];
+        await Axios.get('/api/all-hospitals?offset=0&limit=5000')
+            .then((result)=>{
+                hospitals = result.data;
+            })
+            .catch((e)=>{
+                console.error(e);
+            })
         const capacityData = [
             {name: "Occupied", value: 1200},
             {name: "Free", value: 150}
@@ -75,7 +70,7 @@ class InfoBox extends React.Component {
         ]
 
         this.setState({
-            bezirke: bezirke,
+            hospitals: hospitals,
             capacityData: capacityData,
             trendData: trendData,
             loading: false
@@ -165,7 +160,44 @@ class InfoBox extends React.Component {
         this.setState({});
 
     }
+    /**
+     * handle to search existing skills
+     * @param {event} e 
+     */
+    search = (e) => {
+        this.setState({search: e.target.value});
+    }
 
+    /**
+     * handle to add skill
+     * @param {string} value to be added skill
+     */
+    handleAddHospital = (value) => {
+        if(this.state.employee_skills.includes(value.toLowerCase())){
+            this.setState({
+                error: true,
+                message: "Diese Skill ist schon vorhanden."
+            })
+        } else {
+            let employee_skills = [...this.state.employee_skills];
+            employee_skills.push(value.toLowerCase());
+            this.setState({
+                employee_skills: employee_skills,
+                search: ""
+            });        
+        };
+    }
+   
+    /**
+     * handle to delete skill
+     * @param {string} value to be deleted skill
+     */
+    handleDelHospital = (value) => {
+        let employee_skills = [...this.state.employee_skills];
+        employee_skills.splice( employee_skills.indexOf(value), 1 );
+        this.setState({employee_skills: employee_skills});
+        
+    }
     /**
      * @return {null|*}
      */
@@ -173,26 +205,38 @@ class InfoBox extends React.Component {
         if (this.state.loading === true) {
             return null;
         }
-
+        let hospitals_list = this.state.hospitals.filter((hospital)=>!hospital.selected)
+        const query = this.state.search;
+        if(query && query.length >= 1) {
+            hospitals_list = [];
+            this.state.hospitals.map(hospital => {
+                if(hospital.name.toLowerCase().includes(query)) {
+                    hospitals_list.push(hospital);
+                };
+            })    
+        }
         return (
             <div className="ib--main">
-                <FormControl>
-                    <InputLabel >Bezirk</InputLabel>
-                    <NativeSelect
-                        value={this.state.selectedBezirk}
-                        onChange={this.handleSelect}
-                        name="Bezirk"
-                        className="select"
-                        inputProps={{
-                            name: 'selectedBezirk'
-                        }}
-                    >
-                        <option key="all" value="All">All</option>
-                        {this.state.bezirke.map((bezirk) => {
-                            return <option key={bezirk} value={bezirk}>{bezirk}</option>;
-                        })}
-                    </NativeSelect>
-                </FormControl>
+                <Box className="select-menu">
+                    <Autocomplete
+                        id="search-skill"
+                        getOptionLabel={option => option.name}
+                        options={hospitals_list}
+                        renderInput={params => (
+                            <TextField
+                                className="search-input"
+                                {...params}
+                                size="small" 
+                                label="Search Hospitals" 
+                                variant="outlined" 
+                                onSelect={this.search}
+                            />
+                        )}  
+                    />
+                    {/* <Fab className="" color="primary" onClick={this.handleAddHospital} size="small">
+                        <AddIcon />
+                    </Fab> */}
+                </Box>
                 <Box>
                     <canvas width={260} id="capacity" ref={this.capacityChartRef} />
                 </Box>
