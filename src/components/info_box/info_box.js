@@ -209,9 +209,9 @@ class InfoBox extends React.Component {
                     Bettenbelegung melden!
                 </Button>
                 <div onClick={() => this.props.handleImpressumOpen()}>
-                <Typography variant="caption" display="block" gutterBottom>
-                    Impressum
-                </Typography>
+                    <Typography className="ib--impressum" variant="caption" display="block" gutterBottom>
+                        Impressum
+                    </Typography>
                 </div>
                 
                 
