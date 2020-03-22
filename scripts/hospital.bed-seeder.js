@@ -21,7 +21,7 @@ function generateBedData(id, normal_beds, emergency_beds) {
         free_emergency_beds = getRandomNumberBedsIncreasing(free_emergency_beds, emergency_beds)
         tmpArray.push([id, normal_beds, emergency_beds, free_normal_beds, free_emergency_beds, generateDate(9-i)])
     }
-    console.log(tmpArray)
+    console.log(tmpArray);
     return tmpArray  
 }
 
