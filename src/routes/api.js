@@ -31,8 +31,14 @@ app.post('/save', [
 ], Capacity.saveCapacity);
 
 app.get('/all-hotspots', async (req, res) => {
-
-    const q1 = DB.query("SELECT * FROM bedroom.hotspots;");
+    const q1 = DB.query(
+        'SELECT a.name, b.id, b.geo_lat, b.geo_long, b.amount, b.timest ' +
+        'FROM (SELECT name, MAX(timest) AS latest FROM hotspots '+
+        '      GROUP BY name) AS a ' +
+        'JOIN hotspots b ON b.name = a.name AND b.timest = a.latest '+
+        'ORDER BY a.name;'
+    );
+    // const q1 = DB.query("SELECT * FROM bedroom.hotspots;");
 
     Promise.all([q1]).then((result) => {
         res.json({
