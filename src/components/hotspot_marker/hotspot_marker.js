@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
-import ReactMapGL, {Marker} from 'react-map-gl';
+import {Marker} from 'react-map-gl';
+import {Tooltip, Typography} from '@material-ui/core';
 
 /**
  * Markers
@@ -22,7 +23,15 @@ class HotspotMarker extends PureComponent {
                         className="app--hotspot-circle"
                         style={{width:hotspot.amount, height: hotspot.amount}}
                     >
-                        <div className="bezirk-label" style={{lineHeight: hotspot.amount+"px"}}>{hotspot.name}</div>
+                        <Tooltip
+                            title={
+                                <React.Fragment>
+                                    <Typography variant="subtitle2" color="inherit">{hotspot.name}</Typography>
+                                    <Typography variant="subtitle2" color="inherit">Anzahl der Infizierten: {hotspot.amount}</Typography>
+                                </React.Fragment>
+                            } arrow>
+                                <div className="bezirk-label" style={{lineHeight: hotspot.amount+"px"}} />
+                        </Tooltip>
                     </div>
                 </Marker>
             );
