@@ -8,18 +8,26 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+const percentage = (number, percentage) => {
+    return Math.floor((number / 100) * percentage);
+};
+
 const genereateBeds = (id, normal_betten, intensiv_betten) => {
 
     const result = [];
     const startdate = moment();
 
     for (let i = 0; i < 7; i++) {
+
+        const normal_bettenP = getRandomIntInclusive(1, 20),
+            intensiv_bettenP = getRandomIntInclusive(1, 20);
+
         result.push([
             id,
             normal_betten,
             intensiv_betten,
-            normal_betten - getRandomIntInclusive(0, normal_betten),
-            intensiv_betten - getRandomIntInclusive(0, intensiv_betten),
+            percentage(normal_betten, normal_bettenP),
+            percentage(intensiv_betten, intensiv_bettenP),
             startdate.format('YYYY-MM-DD HH:mm:ss')
         ]);
 
