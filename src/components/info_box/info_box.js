@@ -78,7 +78,7 @@ class InfoBox extends React.Component {
         let occupied = [];
         trends.map((trend)=>{
             const occupiedPercent =  Math.round((trend.beds_normal_gesamt - trend.beds_normal_free) / trend.beds_normal_gesamt * 100);
-            occupied.push({ date: moment(trend.timest).format('YYYY-MM-DD HH:mm'), value: occupiedPercent });
+            occupied.push({ date: moment(trend.timest).format('YYYY-MM-DD'), value: occupiedPercent });
         })
         console.log('occupied', occupied);
 

@@ -76,9 +76,9 @@ class Capacity {
             "    sum(beds_intensiv_gesamt) as beds_intensiv_gesamt, " +
             "    sum(beds_normal_free) as beds_normal_free , " +
             "    sum(beds_normal_gesamt) as beds_normal_gesamt, " +
-            "    timest " +
+            "    DATE(timest) AS timest " +
             "FROM bedroom.beds " +
-            "GROUP BY timest ORDER BY timest;";
+            "GROUP BY DATE(timest) ORDER BY DATE(timest);";
 
         return DB.query(sql)
             .then((result) => {
