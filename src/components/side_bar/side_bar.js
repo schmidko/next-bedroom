@@ -22,7 +22,7 @@ class SideBar extends React.Component {
             anchor="right"
             className="sidebar--main"
             classes={{
-                paper: "sidebar--main",
+                paper: "sidebar--main"
             }}
         >
             <div className={"switch"}>
